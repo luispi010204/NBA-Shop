@@ -49,7 +49,7 @@ public class DataHandler {
 
     public static void saveSpieler(Spieler spieler) {
         getSpielerMap().put(spieler.getSpielerUUID(), spieler);
-       // writeJSON();
+       writeJSON();
     }
 
     //schuh
@@ -65,7 +65,7 @@ public class DataHandler {
 
     public static void saveSchuh(Schuh schuh) {
         getSchuhMap().put(schuh.getSchuhUUID(), schuh);
-        //writeJSON();
+        writeJSON();
     }
 //ende Schuh
 
@@ -81,7 +81,7 @@ public class DataHandler {
 
     public static void saveJersey(Schuh schuh) {
         getSchuhMap().put(schuh.getSchuhUUID(), schuh);
-        //writeJSON();
+        writeJSON();
     }
 
 
@@ -138,6 +138,17 @@ public class DataHandler {
                 spieler.setSchuh(schuh);
                 getSpielerMap().put(spieler.getSpielerUUID(), spieler);
 
+                String jerseyUUID = spieler.getJersey().getJerseyUUID();
+                Jersey jersey;
+
+                if (getJerseyMap().containsKey(jerseyUUID)) {
+                    jersey = getJerseyMap().get(jerseyUUID);
+                } else {
+                    jersey = spieler.getJersey();
+                    getJerseyMap().put(jerseyUUID, jersey);
+                }
+                spieler.setJersey(jersey);
+                getSpielerMap().put(spieler.getSpielerUUID(), spieler);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -159,6 +170,5 @@ public class DataHandler {
             ex.printStackTrace();
         }
     }
-
 
 }

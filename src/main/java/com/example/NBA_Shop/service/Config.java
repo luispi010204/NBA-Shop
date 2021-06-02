@@ -32,6 +32,9 @@ public class Config extends Application {
     public Set<Class<?>> getClasses() {
         HashSet providers = new HashSet<Class<?>>();
         providers.add(TestService.class);
+        providers.add(SpielerService.class);
+        providers.add(SchuhService.class);
+        providers.add(JerseyService.class);
         return providers;
     }
 
