@@ -13,14 +13,14 @@ import java.util.Set;
 /**
  * configure the web services and properties
  * <p>
- * M151: BookDB
+ * M133: SpielerDB
  *
- * @author Marcel Suter (Ghwalin)
+ * @author Luigi Spina
  */
 @ApplicationPath("/resource")
 public class Config extends Application {
 
-    private static final String PROPERTIES_FILENAME = "book.properties";
+    private static final String PROPERTIES_FILENAME = "spieler.properties";
     private static Properties properties = null;
 
     /**

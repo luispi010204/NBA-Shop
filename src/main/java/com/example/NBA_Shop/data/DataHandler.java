@@ -3,16 +3,22 @@ package com.example.NBA_Shop.data;
 import com.example.NBA_Shop.model.Jersey;
 import com.example.NBA_Shop.model.Schuh;
 import com.example.NBA_Shop.model.Spieler;
+import com.example.NBA_Shop.service.Config;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * data handler for reading and writing the csv files
+ * data handler for reading and writing the json files
  * <p>
- * M133: Bookshelf
+ * M133: NBA Shop
  *
- * @author Marcel Suter
+ * @author Luigi Spina
  */
 
 public class DataHandler {
@@ -28,7 +34,7 @@ public class DataHandler {
         spielerMap = new HashMap<>();
         schuhMap = new HashMap<>();
         jerseyMap = new HashMap<>();
-        //readJSON();
+        readJSON();
     }
 
 
@@ -113,24 +119,24 @@ public class DataHandler {
     /**
      * reads the books and publishers
      */
-    /* !!! In den anderen Methoden wurden readJSON und writeJSON noch auskommentiert.
+    /*!!! In den anderen Methoden wurden readJSON und writeJSON noch auskommentiert. */
     private static void readJSON() {
         try {
-            String bookPath = Config.getProperty("bookJSON");
-            byte[] jsonData = Files.readAllBytes(Paths.get(bookPath));
+            String spielerPath = Config.getProperty("SpielerJSON");
+            byte[] jsonData = Files.readAllBytes(Paths.get(spielerPath));
             ObjectMapper objectMapper = new ObjectMapper();
-            Book[] books = objectMapper.readValue(jsonData, Book[].class);
-            for (Book book : books) {
-                String publisherUUID = book.getPublisher().getPublisherUUID();
-                Publisher publisher;
-                if (getPublisherMap().containsKey(publisherUUID)) {
-                    publisher = getPublisherMap().get(publisherUUID);
+            Spieler[] spielers = objectMapper.readValue(jsonData, Spieler[].class);
+            for (Spieler spieler : spielers) {
+                String schuhUUID = spieler.getSchuh().getSchuhUUID();
+                Schuh schuh;
+                if (getSchuhMap().containsKey(schuhUUID)) {
+                    schuh = getSchuhMap().get(schuhUUID);
                 } else {
-                    publisher = book.getPublisher();
-                    getPublisherMap().put(publisherUUID, publisher);
+                    schuh = spieler.getSchuh();
+                    getSchuhMap().put(schuhUUID, schuh);
                 }
-                book.setPublisher(publisher);
-                getBookMap().put(book.getBookUUID(), book);
+                spieler.setSchuh(schuh);
+                getSpielerMap().put(spieler.getSpielerUUID(), spieler);
 
             }
         } catch (IOException e) {
@@ -144,15 +150,15 @@ public class DataHandler {
         Writer writer;
         FileOutputStream fileOutputStream = null;
 
-        String bookPath = Config.getProperty("bookJSON");
+        String spielerPath = Config.getProperty("SpielerJSON");
         try {
-            fileOutputStream = new FileOutputStream(bookPath);
+            fileOutputStream = new FileOutputStream(spielerPath);
             writer = new BufferedWriter(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8));
-            objectMapper.writeValue(writer, getBookMap().values());
+            objectMapper.writeValue(writer, getSpielerMap().values());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
-     */
+
 }
