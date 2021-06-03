@@ -119,7 +119,7 @@ public class DataHandler {
     /**
      * reads the books and publishers
      */
-    /*!!! In den anderen Methoden wurden readJSON und writeJSON noch auskommentiert. */
+
     private static void readJSON() {
         try {
             String spielerPath = Config.getProperty("SpielerJSON");
