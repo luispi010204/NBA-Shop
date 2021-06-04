@@ -4,6 +4,9 @@ public class Jersey {
 
     private String JerseyUUID;
 
+    private String spielerName;
+    private double preis;
+
     public String getJerseyUUID() {
         return JerseyUUID;
     }
@@ -12,15 +15,13 @@ public class Jersey {
         JerseyUUID = jerseyUUID;
     }
 
-    private String SpielerName;
-    private double preis;
 
     public String getSpielerName() {
-        return SpielerName;
+        return spielerName;
     }
 
     public void setSpielerName(String spielerName) {
-        SpielerName = spielerName;
+        this.spielerName = spielerName;
     }
 
     public double getPreis() {

@@ -3,6 +3,9 @@ package com.example.NBA_Shop.model;
 public class Schuh {
     private String schuhUUID;
 
+    private String schuhName;
+    private double preis;
+
     public String getSchuhUUID() {
         return schuhUUID;
     }
@@ -11,13 +14,6 @@ public class Schuh {
         this.schuhUUID = schuhUUID;
     }
 
-    private String schuhName;
-    private double preis;
-
-
-    public Schuh() {
-
-    }
 
     public double getPreis() {
         return preis;
