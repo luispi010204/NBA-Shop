@@ -122,7 +122,7 @@ public class DataHandler {
 
     private static void readJSON() {
         try {
-            String spielerPath = Config.getProperty("SpielerJSON");
+            String spielerPath = Config.getProperty("spielerJSON");
             byte[] jsonData = Files.readAllBytes(Paths.get(spielerPath));
             ObjectMapper objectMapper = new ObjectMapper();
             Spieler[] spielers = objectMapper.readValue(jsonData, Spieler[].class);
@@ -136,7 +136,7 @@ public class DataHandler {
                     getSchuhMap().put(schuhUUID, schuh);
                 }
                 spieler.setSchuh(schuh);
-                getSpielerMap().put(spieler.getSpielerUUID(), spieler);
+                //getSpielerMap().put(spieler.getSpielerUUID(), spieler);
 
                 String jerseyUUID = spieler.getJersey().getJerseyUUID();
                 Jersey jersey;

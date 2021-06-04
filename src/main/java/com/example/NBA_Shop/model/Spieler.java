@@ -3,6 +3,14 @@ package com.example.NBA_Shop.model;
 public class Spieler {
     private String spielerUUID;
 
+
+    private String vorname;
+    private String nachname;
+    private int alter;
+    private Schuh schuh;
+    private Jersey jersey;
+
+
     public String getSpielerUUID() {
         return spielerUUID;
     }
@@ -10,12 +18,6 @@ public class Spieler {
     public void setSpielerUUID(String spielerUUID) {
         this.spielerUUID = spielerUUID;
     }
-
-    private String vorname;
-    private String nachname;
-    private int alter;
-    private Schuh schuh;
-    private Jersey jersey;
 
     public String getVorname() {
         return vorname;
