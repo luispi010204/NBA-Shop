@@ -3,8 +3,6 @@ package com.example.NBA_Shop.service;
 import com.example.NBA_Shop.data.DataHandler;
 import com.example.NBA_Shop.model.Jersey;
 
-
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -75,4 +73,3 @@ public class JerseyService {
     }
 
 }
-

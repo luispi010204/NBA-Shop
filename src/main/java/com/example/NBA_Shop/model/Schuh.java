@@ -1,10 +1,17 @@
 package com.example.NBA_Shop.model;
 
-public class Schuh {
-    private String schuhUUID;
+/**
+ * Model of Schuh
+ *
+ * @author Luigi Spina
+ * @version 1.0
+ * @since 2021-06-04
+ */
 
-    private String schuhName;
-    private double preis;
+public class Schuh {
+    private String schuhUUID; //unique ID for shoes
+    private String schuhName; //whose shoes are it
+    private double preis; //price of the shoes
 
     public String getSchuhUUID() {
         return schuhUUID;
@@ -13,7 +20,6 @@ public class Schuh {
     public void setSchuhUUID(String schuhUUID) {
         this.schuhUUID = schuhUUID;
     }
-
 
     public double getPreis() {
         return preis;

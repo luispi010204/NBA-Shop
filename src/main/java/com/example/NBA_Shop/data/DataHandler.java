@@ -14,11 +14,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * data handler for reading and writing the json files
- * <p>
- * M133: NBA Shop
+ * The DataHandler is used for reading and writing the json files
+ *
+ * M133: NBA-Shop
  *
  * @author Luigi Spina
+ * @since 2021-06-04
+ * @version 1.0
+ *
  */
 
 public class DataHandler {
@@ -37,7 +40,9 @@ public class DataHandler {
         readJSON();
     }
 
-
+    /**
+     * reads the player using the param: spielerUUID
+     */
     public static Spieler readSpieler(String spielerUUID) {
         Spieler spieler = new Spieler();
         if (getSpielerMap().containsKey(spielerUUID)) {
@@ -46,15 +51,18 @@ public class DataHandler {
         return spieler;
     }
 
-
+    /**
+     * saves the player
+     */
     public static void saveSpieler(Spieler spieler) {
         getSpielerMap().put(spieler.getSpielerUUID(), spieler);
-       writeJSON();
+        writeJSON();
     }
+    //end of Spieler
 
-    //schuh
-
-
+    /**
+     * reads the shoe using the param: schuhUUID
+     */
     public static Schuh readSchuh(String schuhUUID) {
         Schuh schuh = new Schuh();
         if (getSchuhMap().containsKey(schuhUUID)) {
@@ -67,10 +75,12 @@ public class DataHandler {
         getSchuhMap().put(schuh.getSchuhUUID(), schuh);
         writeJSON();
     }
-//ende Schuh
+//end of Schuh
 
 
-    //Jersey
+    /**
+     * reads the jersey using the param: jerseyUUID
+     */
     public static Jersey readJersey(String jerseyUUID) {
         Jersey jersey = new Jersey();
         if (getJerseyMap().containsKey(jerseyUUID)) {
@@ -83,24 +93,28 @@ public class DataHandler {
         getSchuhMap().put(schuh.getSchuhUUID(), schuh);
         writeJSON();
     }
-
+//end of Jersey
 
     /**
-     * gets the bookMap
+     * gets the spielerMap
      *
-     * @return the bookMap
+     * @return the spielerMap
      */
     public static Map<String, Spieler> getSpielerMap() {
         return spielerMap;
     }
 
     /**
-     * gets the publisherMap
+     * gets the schuhMap
      *
-     * @return the publisherMap
+     * @return the schuhMap
      */
     public static Map<String, Schuh> getSchuhMap() {
         return schuhMap;
+    }
+
+    public static Map<String, Jersey> getJerseyMap() {
+        return jerseyMap;
     }
 
     public static void setSchuhMap(Map<String, Schuh> Schuhmap) {
@@ -108,16 +122,12 @@ public class DataHandler {
     }
 
 
-    public static Map<String, Jersey> getJerseyMap() {
-        return jerseyMap;
-    }
-
     public static void setJerseyMap(Map<String, Jersey> JerseyMap) {
         DataHandler.jerseyMap = jerseyMap;
     }
 
     /**
-     * reads the books and publishers
+     * reads the JSON-File (with Spieler, Schuh and Jersey)
      */
 
     private static void readJSON() {
@@ -136,7 +146,6 @@ public class DataHandler {
                     getSchuhMap().put(schuhUUID, schuh);
                 }
                 spieler.setSchuh(schuh);
-                //getSpielerMap().put(spieler.getSpielerUUID(), spieler);
 
                 String jerseyUUID = spieler.getJersey().getJerseyUUID();
                 Jersey jersey;
@@ -155,7 +164,9 @@ public class DataHandler {
         }
     }
 
-
+    /**
+     * writes the JSON-File (with Spieler, Schuh and Jersey)
+     */
     private static void writeJSON() {
         ObjectMapper objectMapper = new ObjectMapper();
         Writer writer;
@@ -170,5 +181,4 @@ public class DataHandler {
             ex.printStackTrace();
         }
     }
-
 }

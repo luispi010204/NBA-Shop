@@ -1,15 +1,21 @@
 package com.example.NBA_Shop.model;
 
+/**
+ * Model of Spieler
+ *
+ * @author Luigi Spina
+ * @version 1.0
+ * @since 2021-06-04
+ */
+
 public class Spieler {
-    private String spielerUUID;
 
-
+    private String spielerUUID; //unique ID of the player
     private String vorname;
     private String nachname;
     private int alter;
     private Schuh schuh;
     private Jersey jersey;
-
 
     public String getSpielerUUID() {
         return spielerUUID;

@@ -11,8 +11,8 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
- * configure the web services and properties
- * <p>
+ * Configurationen für den Web, (also vor allem Path)
+ *
  * M133: SpielerDB
  *
  * @author Luigi Spina

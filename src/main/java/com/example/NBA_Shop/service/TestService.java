@@ -7,11 +7,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- * service for testing
- * <p>
- * Bookshelf
+ * service for testings
  *
- * @author Marcel Suter (Ghwalin)
+ * NBA-Shop
+ *
+ * @author Luigi Spina
  */
 @Path("test")
 public class TestService {
