@@ -4,7 +4,9 @@ import com.example.NBA_Shop.model.Jersey;
 import com.example.NBA_Shop.model.Schuh;
 import com.example.NBA_Shop.model.Spieler;
 import com.example.NBA_Shop.service.Config;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -52,6 +54,16 @@ public class DataHandler {
     }
 
     /**
+     * inserts a new Player into the SpielerMap
+     *
+     * @param spieler the player to be saved
+     */
+    public static void insertSpieler(Spieler spieler) {
+        getSpielerMap().put(spieler.getSpielerUUID(), spieler);
+        writeJSON();
+    }
+
+    /**
      * saves the player
      */
     public static void saveSpieler(Spieler spieler) {
@@ -71,6 +83,16 @@ public class DataHandler {
         return schuh;
     }
 
+    /**
+     * inserts a new shoe into the SchuhMap
+     *
+     * @param schuh the shoe to be saved
+     */
+    public static void insertSchuh(Schuh schuh) {
+        getSchuhMap().put(schuh.getSchuhName(), schuh);
+        writeJSON();
+    }
+
     public static void saveSchuh(Schuh schuh) {
         getSchuhMap().put(schuh.getSchuhUUID(), schuh);
         writeJSON();
@@ -88,6 +110,17 @@ public class DataHandler {
         }
         return jersey;
     }
+
+    /**
+     * inserts a new jersey into the JerseyMap
+     *
+     * @param jersey the jersey to be saved
+     */
+    public static void insertJersey(Jersey jersey) {
+        getJerseyMap().put(jersey.getJerseyUUID(), jersey);
+        writeJSON();
+    }
+
 
     public static void saveJersey(Schuh schuh) {
         getSchuhMap().put(schuh.getSchuhUUID(), schuh);
