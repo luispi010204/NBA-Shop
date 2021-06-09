@@ -10,16 +10,16 @@ package com.example.NBA_Shop.model;
 
 public class Jersey {
 
-    private String JerseyUUID; //unique ID for Jerseys
+    private String jerseyUUID; //unique ID for Jerseys
     private String spielerName; //whose jersey is it
     private double preis; //price of Jersey
 
     public String getJerseyUUID() {
-        return JerseyUUID;
+        return jerseyUUID;
     }
 
     public void setJerseyUUID(String jerseyUUID) {
-        JerseyUUID = jerseyUUID;
+        this.jerseyUUID = jerseyUUID;
     }
 
 

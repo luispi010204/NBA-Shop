@@ -2,6 +2,7 @@ package com.example.NBA_Shop.service;
 
 import com.example.NBA_Shop.data.DataHandler;
 import com.example.NBA_Shop.model.Jersey;
+import com.example.NBA_Shop.model.Schuh;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -68,6 +69,90 @@ public class JerseyService {
         Response response = Response
                 .status(httpStatus)
                 .entity(jersey)
+                .build();
+        return response;
+    }
+
+    /**
+     * creates a new jersey without player
+     * @param spielerName
+     * @return Response
+     */
+    @POST
+    @Path("create")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response createJersey(
+            @FormParam("jersey") String spielerName
+    ) {
+        int httpStatus = 200;
+        Jersey jersey = new Jersey();
+        jersey.setJerseyUUID(UUID.randomUUID().toString());
+        jersey.setSpielerName(spielerName);
+        DataHandler.saveJersey(jersey);
+
+        Response response = Response
+                .status(httpStatus)
+                .entity("")
+                .build();
+        return response;
+    }
+
+    /**
+     * updates the shoes
+     * @param jerseyUUID  the uuid of the Jersey
+     * @param spielerName  the Name of the player whose jersey it is.
+     * @param preis  price of the shoe
+     * @return Response
+     */
+    @PUT
+    @Path("update")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response updateJersey(
+            @FormParam("jerseyUUID") String jerseyUUID,
+            @FormParam("spielerName") String spielerName,
+            @FormParam("preis") double preis
+    ) {
+        int httpStatus = 200;
+        Jersey jersey = new Jersey();
+        try {
+            UUID.fromString(jerseyUUID);
+            jersey.setJerseyUUID(jerseyUUID);
+            jersey.setSpielerName(spielerName);
+            if (DataHandler.updateJersey(jersey)) {
+                httpStatus = 200;
+            } else {
+                httpStatus = 404;
+            }
+        } catch (IllegalArgumentException argEx) {
+            httpStatus = 400;
+        }
+        Response response = Response
+                .status(httpStatus)
+                .entity("")
+                .build();
+        return response;
+    }
+
+    @DELETE
+    @Path("delete")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response deleteJersey(
+            @QueryParam("uuid") String jerseyUUID
+    ) {
+        int httpStatus;
+        try {
+            UUID.fromString(jerseyUUID);
+            int errorcode = DataHandler.deleteSchuh(jerseyUUID);
+            if (errorcode == 0) httpStatus = 200;
+            else if (errorcode == -1) httpStatus = 409;
+            else httpStatus = 404;
+        } catch (IllegalArgumentException argEx) {
+            httpStatus = 400;
+        }
+
+        Response response = Response
+                .status(httpStatus)
+                .entity("")
                 .build();
         return response;
     }
