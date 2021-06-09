@@ -294,14 +294,15 @@ public class DataHandler {
      */
     private static void writeJSON() {
         ObjectMapper objectMapper = new ObjectMapper();
-        Writer writer;
+        ObjectWriter objectWriter = objectMapper.writer(new DefaultPrettyPrinter());
         FileOutputStream fileOutputStream = null;
+        Writer fileWriter;
 
         String spielerPath = Config.getProperty("SpielerJSON");
         try {
             fileOutputStream = new FileOutputStream(spielerPath);
-            writer = new BufferedWriter(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8));
-            objectMapper.writeValue(writer, getSpielerMap().values());
+            fileWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8));
+            objectMapper.writeValue(fileWriter, getSpielerMap().values());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
