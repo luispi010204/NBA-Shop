@@ -1,0 +1,36 @@
+[
+  {
+    "spielerUUID": "3240c340-c712-402e-b400-0a26a9368c97",
+    "vorname": "Michael",
+    "nachname": "Jordan",
+    "alter": "58",
+    "schuh": {
+      "schuhUUID": "ecd86168-5341-73c6-81ed-f3f8595965dc",
+      "schuhName": "Air Jordan 1",
+      "preis": "350.00"
+    },
+    "jersey": {
+      "jerseyUUID": "ecd26148-5371-73c6-81ed-f3f8595915dc",
+      "spielerName": "Bulls 23",
+      "preis": "150.00"
+    }
+
+  },
+
+  {
+    "spielerUUID": "3242c330-c715-402e-b400-0a29a9368c67",
+    "vorname": "Kobe",
+    "nachname": "Bryant",
+    "alter": "41",
+    "schuh": {
+      "schuhUUID": "ecd82168-5241-73c6-81ed-f3f2595265dc",
+      "schuhName": "Mabma Kobe 4",
+      "preis": "135.00"
+    },
+    "jersey": {
+      "jerseyUUID": "ecd89168-5941-79c6-81ed-f3f2598262dc",
+      "spielerName": "Lakers 24",
+      "preis": "125.00"
+    }
+  }
+]
