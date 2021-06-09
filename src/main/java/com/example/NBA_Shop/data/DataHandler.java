@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * The DataHandler is used for reading and writing the json files
@@ -58,18 +59,32 @@ public class DataHandler {
      *
      * @param spieler the player to be saved
      */
-    public static void insertSpieler(Spieler spieler) {
+    public static void saveSpieler(Spieler spieler) {
         getSpielerMap().put(spieler.getSpielerUUID(), spieler);
         writeJSON();
     }
 
     /**
-     * saves the player
+     * updates the Spielermap
      */
-    public static void saveSpieler(Spieler spieler) {
-        getSpielerMap().put(spieler.getSpielerUUID(), spieler);
+    public static void updateSpieler() {
         writeJSON();
     }
+
+    /**
+     * removes a player from the Spielermap
+     *
+     * @param spielerUUID the uuid of the player to be removed
+     * @return success
+     */
+    public static boolean deleteSpieler(String spielerUUID) {
+        if (getSpielerMap().remove(spielerUUID) != null) {
+            writeJSON();
+            return true;
+        } else
+            return false;
+    }
+
     //end of Spieler
 
     /**
@@ -88,15 +103,55 @@ public class DataHandler {
      *
      * @param schuh the shoe to be saved
      */
-    public static void insertSchuh(Schuh schuh) {
-        getSchuhMap().put(schuh.getSchuhName(), schuh);
-        writeJSON();
+    public static void saveSchuh(Schuh schuh) {
+        Spieler spieler  = new Spieler();
+        spieler.setSpielerUUID(UUID.randomUUID().toString());
+        spieler.setVorname("");
+        spieler.setNachname("");
+        spieler.setSchuh(schuh);
+        saveSpieler(spieler);
+
     }
 
-    public static void saveSchuh(Schuh schuh) {
-        getSchuhMap().put(schuh.getSchuhUUID(), schuh);
+    /**
+     * updates the Shuhmap
+     */
+    public static boolean updateSchuh(Schuh schuh) {
+        boolean found = false;
+        for (Map.Entry<String, Spieler> entry : getSpielerMap().entrySet()) {
+            Spieler spieler = entry.getValue();
+            if (spieler.getSchuh().getSchuhUUID().equals(schuh.getSchuhUUID())) {
+                spieler.setSchuh(schuh);
+                found = true;
+            }
+        }
+            writeJSON();
+            return found;
+        }
+
+    /**
+     * removes a shoe from the Schuhmap
+     *
+     * @param schuhUUID the uuid of the shoe to be removed
+     * @return errorcode  0=ok, -1=referential integrity, 1=not found
+     */
+    public static int deleteSchuh(String schuhUUID) {
+        int errorcode = 1;
+        for (Map.Entry<String, Spieler> entry : getSpielerMap().entrySet()) {
+            Spieler spieler = entry.getValue();
+            if (spieler.getSchuh().getSchuhUUID().equals(schuhUUID)) {
+                if (spieler.getVorname() == null || spieler.getVorname().equals("")) {
+                    deleteSpieler(spieler.getSpielerUUID());
+                    errorcode = 0;
+                } else {
+                    return -1;
+                }
+            }
+        }
         writeJSON();
+        return errorcode;
     }
+
 //end of Schuh
 
 
@@ -112,20 +167,57 @@ public class DataHandler {
     }
 
     /**
-     * inserts a new jersey into the JerseyMap
-     *
-     * @param jersey the jersey to be saved
+     * inserts a new jersey in an empty player
+     * @param jersey
      */
-    public static void insertJersey(Jersey jersey) {
-        getJerseyMap().put(jersey.getJerseyUUID(), jersey);
-        writeJSON();
+    public static void saveJersey(Jersey jersey) {
+        Spieler spieler = new Spieler();
+        spieler.setSpielerUUID(UUID.randomUUID().toString());
+        spieler.setVorname("");
+        spieler.setNachname("");
+        spieler.setJersey(jersey);
+        saveSpieler(spieler);
     }
 
-
-    public static void saveJersey(Schuh schuh) {
-        getSchuhMap().put(schuh.getSchuhUUID(), schuh);
+    /**
+     * updates the Jerseymap
+     */
+    public static boolean updateJersey(Jersey jersey) {
+        boolean found = false;
+        for (Map.Entry<String, Spieler> entry : getSpielerMap().entrySet()) {
+            Spieler spieler = entry.getValue();
+            if (spieler.getJersey().getJerseyUUID().equals(jersey.getJerseyUUID())) {
+                spieler.setJersey(jersey);
+                found = true;
+            }
+        }
         writeJSON();
+        return found;
     }
+
+    /**
+     * removes a jersey from the Jerseymap
+     *
+     * @param jerseyUUID the uuid of the jersey to be removed
+     * @return success
+     */
+    public static int deleteJersey(String jerseyUUID) {
+        int errorcode = 1;
+        for (Map.Entry<String, Spieler> entry : getSpielerMap().entrySet()) {
+            Spieler spieler = entry.getValue();
+            if (spieler.getJersey().getJerseyUUID().equals(jerseyUUID)) {
+                if (spieler.getVorname() == null || spieler.getVorname().equals("")) {
+                    deleteSpieler(spieler.getSpielerUUID());
+                    errorcode = 0;
+                } else {
+                    return -1;
+                }
+            }
+        }
+        writeJSON();
+        return errorcode;
+    }
+
 //end of Jersey
 
     /**
