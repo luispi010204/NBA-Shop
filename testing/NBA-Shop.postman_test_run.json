@@ -1,0 +1,457 @@
+{
+	"id": "146ee9cf-3ed8-4027-b263-31eb945fb375",
+	"name": "NBA-Shop",
+	"timestamp": "2021-06-04T21:30:01.778Z",
+	"collection_id": "964e095f-c87f-4957-83f8-ee65fc6c5c21",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 19,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "028605f2-017e-499a-9b63-938c55d931a8",
+			"name": "LU02.1 Testservice",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/test/test",
+			"time": 18,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "248eeda6-1e02-40eb-ab00-42db1e7708cc",
+			"name": "LU03.1 NBA-Shop",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/spieler/list",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"validate response": true
+				}
+			]
+		},
+		{
+			"id": "d90f24ee-eb2f-4ccf-981e-f24b9b6e2d46",
+			"name": "LU03.2 Read Spieler",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/spieler/read?uuid=3242c330-c715-402e-b400-0a29a9368c67",
+			"time": 23,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				23
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"validate response": true
+				}
+			]
+		},
+		{
+			"id": "d9a54530-ae0c-4696-8b31-8711961599c9",
+			"name": "LU03.3 Read unknown Spieler",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/spieler/read?uuid=3247c340-ffff-402e-b400-0a23a9368c97",
+			"time": 13,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "e3f326c5-be42-4e29-aed2-1b035b47f7af",
+			"name": "LU03.4 Read Spieler with invalid uuid",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/spieler/read?uuid=3247c340-xyzq-402e-b400-0a23a9368c97",
+			"time": 11,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				11
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "fbdb3ade-79e8-4193-8150-0e62c573d848",
+			"name": "LU03.5 Alle Schuhe",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/schuh/list",
+			"time": 15,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"validate response": true
+				}
+			]
+		},
+		{
+			"id": "7a63239b-dba4-4b52-b12d-384a19c109f1",
+			"name": "LU03.5 Alle Jerseys",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/jersey/list",
+			"time": 33,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				33
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"validate response": true
+				}
+			]
+		},
+		{
+			"id": "5eeb75db-482c-4e13-9d20-870baabafd9f",
+			"name": "LU03.6 Read Schuh",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/schuh/read?uuid=ecd82168-5241-73c6-81ed-f3f2595265dc",
+			"time": 14,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"validate response": true
+				}
+			]
+		},
+		{
+			"id": "dfa7893d-09c1-4c47-bee0-d9f73c0845e7",
+			"name": "LU03.6 Read Jersey",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/jersey/read?uuid=ecd26148-5371-73c6-81ed-f3f8595915dc",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"validate response": true
+				}
+			]
+		},
+		{
+			"id": "1d19d33e-ef65-4681-967b-77d881f3cc8d",
+			"name": "LU03.7 Read unknown Schuh",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/schuh/read?uuid=fff86148-5341-43c6-81ed-f3f4595965dc",
+			"time": 12,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "d103b05c-a2c1-413f-bedf-7ba8c3f8bf07",
+			"name": "LU03.7 Read unknown Jersey",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/jersey/read?uuid=fff86141-1321-43c6-85ed-f3f4597962dc",
+			"time": 9,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "a6f4a650-553b-4a79-83d5-3f62c478f5ef",
+			"name": "LU03.8 Read Schuh with invalid uuid",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/schuh/read?uuid=fff86148-5341-43c6-81ed",
+			"time": 15,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "42105645-a514-4e8f-a53b-f49dcbe96bf3",
+			"name": "LU03.8 Read Jersey with invalid uuid",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/jersey/read?uuid=fff86148-5241-42c6-81ed",
+			"time": 23,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				23
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 210,
+	"collection": {
+		"requests": [
+			{
+				"id": "028605f2-017e-499a-9b63-938c55d931a8",
+				"method": "GET"
+			},
+			{
+				"id": "248eeda6-1e02-40eb-ab00-42db1e7708cc",
+				"method": "GET"
+			},
+			{
+				"id": "d90f24ee-eb2f-4ccf-981e-f24b9b6e2d46",
+				"method": "GET"
+			},
+			{
+				"id": "d9a54530-ae0c-4696-8b31-8711961599c9",
+				"method": "GET"
+			},
+			{
+				"id": "e3f326c5-be42-4e29-aed2-1b035b47f7af",
+				"method": "GET"
+			},
+			{
+				"id": "fbdb3ade-79e8-4193-8150-0e62c573d848",
+				"method": "GET"
+			},
+			{
+				"id": "7a63239b-dba4-4b52-b12d-384a19c109f1",
+				"method": "GET"
+			},
+			{
+				"id": "5eeb75db-482c-4e13-9d20-870baabafd9f",
+				"method": "GET"
+			},
+			{
+				"id": "dfa7893d-09c1-4c47-bee0-d9f73c0845e7",
+				"method": "GET"
+			},
+			{
+				"id": "1d19d33e-ef65-4681-967b-77d881f3cc8d",
+				"method": "GET"
+			},
+			{
+				"id": "d103b05c-a2c1-413f-bedf-7ba8c3f8bf07",
+				"method": "GET"
+			},
+			{
+				"id": "a6f4a650-553b-4a79-83d5-3f62c478f5ef",
+				"method": "GET"
+			},
+			{
+				"id": "42105645-a514-4e8f-a53b-f49dcbe96bf3",
+				"method": "GET"
+			}
+		]
+	}
+}

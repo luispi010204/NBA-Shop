@@ -1,0 +1,570 @@
+{
+	"info": {
+		"_postman_id": "964e095f-c87f-4957-83f8-ee65fc6c5c21",
+		"name": "NBA-Shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LU02.1 Testservice",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/test/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"NBA-Shop-1.0-SNAPSHOT",
+						"resource",
+						"test",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LU03.1 NBA-Shop",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"validate response\", function() {",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.text()).to.include(\"nachname\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/spieler/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"NBA-Shop-1.0-SNAPSHOT",
+						"resource",
+						"spieler",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LU03.2 Read Spieler",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"validate response\", function() {",
+							"    pm.response.to.be.json;",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson.vorname).to.eql(\"Kobe\");",
+							"    pm.expect(responseJson.schuh.preis).to.eql(135.00);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/spieler/read?uuid=3242c330-c715-402e-b400-0a29a9368c67",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"NBA-Shop-1.0-SNAPSHOT",
+						"resource",
+						"spieler",
+						"read"
+					],
+					"query": [
+						{
+							"key": "uuid",
+							"value": "3242c330-c715-402e-b400-0a29a9368c67"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LU03.3 Read unknown Spieler",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/spieler/read?uuid=3247c340-ffff-402e-b400-0a23a9368c97",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"NBA-Shop-1.0-SNAPSHOT",
+						"resource",
+						"spieler",
+						"read"
+					],
+					"query": [
+						{
+							"key": "uuid",
+							"value": "3247c340-ffff-402e-b400-0a23a9368c97"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LU03.4 Read Spieler with invalid uuid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/spieler/read?uuid=3247c340-xyzq-402e-b400-0a23a9368c97",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"NBA-Shop-1.0-SNAPSHOT",
+						"resource",
+						"spieler",
+						"read"
+					],
+					"query": [
+						{
+							"key": "uuid",
+							"value": "3247c340-xyzq-402e-b400-0a23a9368c97"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LU03.5 Alle Schuhe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"validate response\", function() {",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.text()).to.include(\"schuhName\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/schuh/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"NBA-Shop-1.0-SNAPSHOT",
+						"resource",
+						"schuh",
+						"list"
+					],
+					"query": [
+						{
+							"key": "uuid",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LU03.5 Alle Jerseys",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"validate response\", function() {",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.text()).to.include(\"spielerName\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/jersey/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"NBA-Shop-1.0-SNAPSHOT",
+						"resource",
+						"jersey",
+						"list"
+					],
+					"query": [
+						{
+							"key": "uuid",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LU03.6 Read Schuh",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"validate response\", function() {",
+							"    pm.response.to.be.json;",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson.schuhName).to.eql(\"Mabma Kobe 4\");",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/schuh/read?uuid=ecd82168-5241-73c6-81ed-f3f2595265dc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"NBA-Shop-1.0-SNAPSHOT",
+						"resource",
+						"schuh",
+						"read"
+					],
+					"query": [
+						{
+							"key": "uuid",
+							"value": "ecd82168-5241-73c6-81ed-f3f2595265dc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LU03.6 Read Jersey",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"validate response\", function() {",
+							"    pm.response.to.be.json;",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson.spielerName).to.eql(\"Bulls 23\");",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/jersey/read?uuid=ecd26148-5371-73c6-81ed-f3f8595915dc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"NBA-Shop-1.0-SNAPSHOT",
+						"resource",
+						"jersey",
+						"read"
+					],
+					"query": [
+						{
+							"key": "uuid",
+							"value": "ecd26148-5371-73c6-81ed-f3f8595915dc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LU03.7 Read unknown Schuh",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/schuh/read?uuid=fff86148-5341-43c6-81ed-f3f4595965dc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"NBA-Shop-1.0-SNAPSHOT",
+						"resource",
+						"schuh",
+						"read"
+					],
+					"query": [
+						{
+							"key": "uuid",
+							"value": "fff86148-5341-43c6-81ed-f3f4595965dc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LU03.7 Read unknown Jersey",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/jersey/read?uuid=fff86141-1321-43c6-85ed-f3f4597962dc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"NBA-Shop-1.0-SNAPSHOT",
+						"resource",
+						"jersey",
+						"read"
+					],
+					"query": [
+						{
+							"key": "uuid",
+							"value": "fff86141-1321-43c6-85ed-f3f4597962dc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LU03.8 Read Schuh with invalid uuid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/schuh/read?uuid=fff86148-5341-43c6-81ed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"NBA-Shop-1.0-SNAPSHOT",
+						"resource",
+						"schuh",
+						"read"
+					],
+					"query": [
+						{
+							"key": "uuid",
+							"value": "fff86148-5341-43c6-81ed"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LU03.8 Read Jersey with invalid uuid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/jersey/read?uuid=fff86148-5241-42c6-81ed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"NBA-Shop-1.0-SNAPSHOT",
+						"resource",
+						"jersey",
+						"read"
+					],
+					"query": [
+						{
+							"key": "uuid",
+							"value": "fff86148-5241-42c6-81ed"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
