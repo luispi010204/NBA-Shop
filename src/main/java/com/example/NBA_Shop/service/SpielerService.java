@@ -5,6 +5,9 @@ import com.example.NBA_Shop.model.Spieler;
 import com.example.NBA_Shop.model.Schuh;
 import com.example.NBA_Shop.model.Jersey;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -53,6 +56,8 @@ public class SpielerService {
     @Path("read")
     @Produces(MediaType.APPLICATION_JSON)
     public Response readPlayer(
+            @NotEmpty
+            @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
             @QueryParam("uuid") String spielerUUID
     ) {
         Spieler spieler = null;
@@ -92,6 +97,9 @@ public class SpielerService {
     @Path("create")
     @Produces(MediaType.TEXT_PLAIN)
     public Response createSpieler(
+            @Valid @BeanParam Spieler spieler,
+            @NotEmpty
+            @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
             @FormParam("vorname") String vorname,
             @FormParam("nachname") String nachname,
             @FormParam("spielerUUID") String spielerUUID,
@@ -100,9 +108,28 @@ public class SpielerService {
             @FormParam("jerseyUUID") String jerseyUUID
     ) {
         int httpStatus = 200;
-        Spieler spieler = new Spieler();
         spieler.setSpielerUUID(UUID.randomUUID().toString());
-        setValues(
+        Schuh schuh = DataHandler.readSchuh(schuhUUID);
+        Jersey jersey = DataHandler.readJersey(jerseyUUID);
+
+        if (schuh != null){
+            spieler.setSchuh(schuh);
+            DataHandler.saveSpieler(spieler);
+            httpStatus = 200;
+        } else {
+            httpStatus = 404;
+        }
+
+        if (jersey != null){
+            spieler.setJersey(jersey);
+            DataHandler.saveSpieler(spieler);
+            httpStatus = 200;
+        } else {
+            httpStatus = 404;
+        }
+
+
+        /*setValues(
                 spieler,
                 vorname,
                 nachname,
@@ -111,9 +138,7 @@ public class SpielerService {
                 schuhUUID,
                 jerseyUUID
 
-        );
-
-        DataHandler.saveSpieler(spieler);
+        );*/
 
         Response response = Response
                 .status(httpStatus)
@@ -136,6 +161,10 @@ public class SpielerService {
     @Path("update")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateSpieler(
+            @Valid @BeanParam Spieler spieler,
+            @NotEmpty
+            @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
+
             @FormParam("vorname") String vorname,
             @FormParam("nachname") String nachname,
             @FormParam("spielerUUID") String spielerUUID,
@@ -144,27 +173,24 @@ public class SpielerService {
             @FormParam("jerseyUUID") String jerseyUUID
     ) {
         int httpStatus = 200;
-        Spieler spieler;
-        try {
-            UUID.fromString(spielerUUID);
-            spieler = DataHandler.readSpieler(spielerUUID);
-            if (spieler.getVorname() != null) {
-                httpStatus = 200;
-                setValues(
-                        spieler,
-                        vorname,
-                        nachname,
-                        spielerUUID,
-                        alter,
-                        schuhUUID,
-                        jerseyUUID
-                );
-                DataHandler.updateSpieler();
-            } else {
-                httpStatus = 404;
-            }
-        } catch (IllegalArgumentException argEx) {
-            httpStatus = 400;
+        Spieler alterSpieler = DataHandler.readSpieler(spieler.getSpielerUUID());
+
+        if (alterSpieler.getVorname() != null){
+            httpStatus = 200;
+            alterSpieler.setVorname(spieler.getVorname());
+            alterSpieler.setNachname(spieler.getNachname());
+            alterSpieler.setAlter(spieler.getAlter());
+            alterSpieler.setSpielerUUID(spieler.getSpielerUUID());
+
+            Schuh schuh = DataHandler.readSchuh(schuhUUID);
+            alterSpieler.setSchuh(schuh);
+
+            Jersey jersey = DataHandler.readJersey(jerseyUUID);
+            alterSpieler.setJersey(jersey);
+
+            DataHandler.updateSpieler();
+        } else {
+            httpStatus = 404;
         }
 
         Response response = Response
@@ -183,9 +209,12 @@ public class SpielerService {
     @Path("delete")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteSpieler(
+            @NotEmpty
+            @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
             @QueryParam("uuid") String spielerUUID
     ) {
         int httpStatus;
+
         try {
             UUID.fromString(spielerUUID);
 

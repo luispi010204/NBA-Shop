@@ -4,6 +4,9 @@ import com.example.NBA_Shop.data.DataHandler;
 import com.example.NBA_Shop.model.Schuh;
 
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -49,6 +52,8 @@ public class SchuhService {
     @Path("read")
     @Produces(MediaType.APPLICATION_JSON)
     public Response readShoe(
+            @NotEmpty
+            @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
             @QueryParam("uuid") String schuhUUID
     ) {
         Schuh schuh = null;
@@ -75,19 +80,17 @@ public class SchuhService {
 
     /**
      * creates a new shoe without player
-     * @param schuhName
+     * @param schuh
      * @return Response
      */
     @POST
     @Path("create")
     @Produces(MediaType.TEXT_PLAIN)
     public Response createSchuh(
-            @FormParam("schuh") String schuhName
+            @Valid @BeanParam Schuh schuh
     ) {
         int httpStatus = 200;
-        Schuh schuh = new Schuh();
         schuh.setSchuhUUID(UUID.randomUUID().toString());
-        schuh.setSchuhName(schuhName);
         DataHandler.saveSchuh(schuh);
 
         Response response = Response
@@ -99,33 +102,25 @@ public class SchuhService {
 
     /**
      * updates the shoes
-     * @param schuhUUID  the uuid of the shoes
-     * @param schuhName  the new Name of the model
-     * @param preis  price of the shoe
+     * @param schuh
      * @return Response
      */
     @PUT
     @Path("update")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateSchuh(
-            @FormParam("schuhUUID") String schuhUUID,
-            @FormParam("schuhName") String schuhName,
-            @FormParam("preis") double preis
+            @Valid @BeanParam Schuh schuh
     ) {
         int httpStatus = 200;
-        Schuh schuh = new Schuh();
-        try {
-            UUID.fromString(schuhUUID);
-            schuh.setSchuhUUID(schuhUUID);
-            schuh.setSchuhName(schuhName);
+
+        ;
             if (DataHandler.updateSchuh(schuh)) {
                 httpStatus = 200;
             } else {
                 httpStatus = 404;
             }
-        } catch (IllegalArgumentException argEx) {
-            httpStatus = 400;
-        }
+
+
         Response response = Response
                 .status(httpStatus)
                 .entity("")
@@ -133,22 +128,27 @@ public class SchuhService {
         return response;
     }
 
+    /**
+     * deletes schoes
+     *
+     * @param schuhUUID the uuid of the shoe to be deleted
+     * @return Response
+     */
     @DELETE
     @Path("delete")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteSchuh(
+            @NotEmpty
+            @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
             @QueryParam("uuid") String schuhUUID
     ) {
         int httpStatus;
-        try {
-            UUID.fromString(schuhUUID);
+
             int errorcode = DataHandler.deleteSchuh(schuhUUID);
             if (errorcode == 0) httpStatus = 200;
             else if (errorcode == -1) httpStatus = 409;
             else httpStatus = 404;
-        } catch (IllegalArgumentException argEx) {
-            httpStatus = 400;
-        }
+
 
         Response response = Response
                 .status(httpStatus)
@@ -156,5 +156,6 @@ public class SchuhService {
                 .build();
         return response;
     }
+
 
 }

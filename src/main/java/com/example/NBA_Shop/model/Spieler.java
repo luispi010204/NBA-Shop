@@ -1,21 +1,51 @@
 package com.example.NBA_Shop.model;
 
+import javax.validation.constraints.*;
+import javax.ws.rs.FormParam;
+
+
 /**
  * Model of Spieler
  *
  * @author Luigi Spina
  * @version 1.0
- * @since 2021-06-04
+ * @since 2021-06-16
  */
 
 public class Spieler {
 
+    @FormParam("spielerUUID")
+    @Pattern(regexp = "|[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
     private String spielerUUID; //unique ID of the player
+
+    @FormParam("vorname")
+    @NotEmpty
+    @Size(min = 2, max = 30)
     private String vorname;
+
+    @FormParam("nachname")
+    @NotEmpty
+    @Size(min = 2, max = 30)
     private String nachname;
+
+    @FormParam("alter")
+    @DecimalMin("0")
+    @DecimalMax("99")
     private int alter;
+
     private Schuh schuh;
+
     private Jersey jersey;
+
+    public Spieler() {
+        setSpielerUUID(null);
+        setVorname(null);
+        setNachname(null);
+        setAlter(0);
+        setSchuh(null);
+        setJersey(null);
+
+    }
 
     public String getSpielerUUID() {
         return spielerUUID;

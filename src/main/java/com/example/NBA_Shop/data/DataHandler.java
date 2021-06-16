@@ -40,8 +40,19 @@ public class DataHandler {
         spielerMap = new HashMap<>();
         schuhMap = new HashMap<>();
         jerseyMap = new HashMap<>();
-        readJSON();
+        readJSON("spielerJSON");
     }
+
+    /**
+     * restores the backup data
+     */
+    public static void restoreData() {
+        spielerMap = new HashMap<>();
+        schuhMap = new HashMap<>();
+        jerseyMap = new HashMap<>();
+        readJSON("backupJSON");
+    }
+
 
     /**
      * reads the player using the param: spielerUUID
@@ -255,10 +266,10 @@ public class DataHandler {
      * reads the JSON-File (with Spieler, Schuh and Jersey)
      */
 
-    private static void readJSON() {
+    private static void readJSON(String propertyName) {
         try {
-            String spielerPath = Config.getProperty("spielerJSON");
-            byte[] jsonData = Files.readAllBytes(Paths.get(spielerPath));
+
+            byte[] jsonData = Files.readAllBytes(Paths.get(Config.getProperty(propertyName)));
             ObjectMapper objectMapper = new ObjectMapper();
             Spieler[] spielers = objectMapper.readValue(jsonData, Spieler[].class);
             for (Spieler spieler : spielers) {

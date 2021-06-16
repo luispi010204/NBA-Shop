@@ -2,8 +2,10 @@ package com.example.NBA_Shop.service;
 
 import com.example.NBA_Shop.data.DataHandler;
 import com.example.NBA_Shop.model.Jersey;
-import com.example.NBA_Shop.model.Schuh;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -49,22 +51,20 @@ public class JerseyService {
     @Path("read")
     @Produces(MediaType.APPLICATION_JSON)
     public Response readJersey(
+            @NotEmpty
+            @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
             @QueryParam("uuid") String jerseyUUID
     ) {
         Jersey jersey = null;
         int httpStatus;
 
-        try {
-            UUID.fromString(jerseyUUID);
-            jersey = DataHandler.readJersey(jerseyUUID);
-            if (jersey.getSpielerName() != null) {
-                httpStatus = 200;
-            } else {
-                httpStatus = 404;
-            }
-        } catch (IllegalArgumentException argEx) {
-            httpStatus = 400;
+        jersey = DataHandler.readJersey(jerseyUUID);
+        if (jersey.getSpielerName() != null) {
+            httpStatus = 200;
+        } else {
+            httpStatus = 404;
         }
+
 
         Response response = Response
                 .status(httpStatus)
@@ -75,19 +75,19 @@ public class JerseyService {
 
     /**
      * creates a new jersey without player
-     * @param spielerName
+     *
+     * @param jersey
      * @return Response
      */
     @POST
     @Path("create")
     @Produces(MediaType.TEXT_PLAIN)
     public Response createJersey(
-            @FormParam("jersey") String spielerName
+            @Valid @BeanParam Jersey jersey
+
     ) {
         int httpStatus = 200;
-        Jersey jersey = new Jersey();
         jersey.setJerseyUUID(UUID.randomUUID().toString());
-        jersey.setSpielerName(spielerName);
         DataHandler.saveJersey(jersey);
 
         Response response = Response
@@ -99,33 +99,24 @@ public class JerseyService {
 
     /**
      * updates the shoes
-     * @param jerseyUUID  the uuid of the Jersey
-     * @param spielerName  the Name of the player whose jersey it is.
-     * @param preis  price of the shoe
+     *
+     * @param jersey
      * @return Response
      */
     @PUT
     @Path("update")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateJersey(
-            @FormParam("jerseyUUID") String jerseyUUID,
-            @FormParam("spielerName") String spielerName,
-            @FormParam("preis") double preis
+            @Valid @BeanParam Jersey jersey
     ) {
         int httpStatus = 200;
-        Jersey jersey = new Jersey();
-        try {
-            UUID.fromString(jerseyUUID);
-            jersey.setJerseyUUID(jerseyUUID);
-            jersey.setSpielerName(spielerName);
-            if (DataHandler.updateJersey(jersey)) {
-                httpStatus = 200;
-            } else {
-                httpStatus = 404;
-            }
-        } catch (IllegalArgumentException argEx) {
-            httpStatus = 400;
+
+        if (DataHandler.updateJersey(jersey)) {
+            httpStatus = 200;
+        } else {
+            httpStatus = 404;
         }
+
         Response response = Response
                 .status(httpStatus)
                 .entity("")
@@ -137,18 +128,17 @@ public class JerseyService {
     @Path("delete")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteJersey(
+            @NotEmpty
+            @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
             @QueryParam("uuid") String jerseyUUID
     ) {
         int httpStatus;
-        try {
-            UUID.fromString(jerseyUUID);
-            int errorcode = DataHandler.deleteSchuh(jerseyUUID);
-            if (errorcode == 0) httpStatus = 200;
-            else if (errorcode == -1) httpStatus = 409;
-            else httpStatus = 404;
-        } catch (IllegalArgumentException argEx) {
-            httpStatus = 400;
-        }
+
+        int errorcode = DataHandler.deleteSchuh(jerseyUUID);
+        if (errorcode == 0) httpStatus = 200;
+        else if (errorcode == -1) httpStatus = 409;
+        else httpStatus = 404;
+
 
         Response response = Response
                 .status(httpStatus)
