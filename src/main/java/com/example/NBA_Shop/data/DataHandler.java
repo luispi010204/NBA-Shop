@@ -159,7 +159,11 @@ public class DataHandler {
                 }
             }
         }
-        writeJSON();
+        if (getSchuhMap().containsKey(schuhUUID)) {
+            getSchuhMap().remove(schuhUUID);
+            errorcode = 0;
+            writeJSON();
+        }
         return errorcode;
     }
 
@@ -225,7 +229,11 @@ public class DataHandler {
                 }
             }
         }
-        writeJSON();
+        if (getJerseyMap().containsKey(jerseyUUID)) {
+            getJerseyMap().remove(jerseyUUID);
+            errorcode = 0;
+            writeJSON();
+        }
         return errorcode;
     }
 

@@ -85,10 +85,6 @@ public class SpielerService {
 
     /**
      * creates a new player
-     * @param vorname firstname of player
-     * @param nachname lastname of player
-     * @param spielerUUID a unique id of player
-     * @param alter the age of player
      * @param schuhUUID shoe of player
      * @param jerseyUUID jersey of player
      * @return Response
@@ -100,10 +96,6 @@ public class SpielerService {
             @Valid @BeanParam Spieler spieler,
             @NotEmpty
             @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
-            @FormParam("vorname") String vorname,
-            @FormParam("nachname") String nachname,
-            @FormParam("spielerUUID") String spielerUUID,
-            @FormParam("alter") int alter,
             @FormParam("schuhUUID") String schuhUUID,
             @FormParam("jerseyUUID") String jerseyUUID
     ) {
@@ -149,10 +141,6 @@ public class SpielerService {
 
     /**
      * updates an existing player
-     * @param vorname firstname of player
-     * @param nachname lastname of player
-     * @param spielerUUID a unique id of player
-     * @param alter the age of player
      * @param schuhUUID shoe of player
      * @param jerseyUUID jersey of player
      * @return Response
@@ -165,10 +153,6 @@ public class SpielerService {
             @NotEmpty
             @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
 
-            @FormParam("vorname") String vorname,
-            @FormParam("nachname") String nachname,
-            @FormParam("spielerUUID") String spielerUUID,
-            @FormParam("alter") int alter,
             @FormParam("schuhUUID")String schuhUUID,
             @FormParam("jerseyUUID") String jerseyUUID
     ) {
