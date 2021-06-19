@@ -132,16 +132,16 @@ public class JerseyService {
             @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
             @QueryParam("uuid") String jerseyUUID
     ) {
-        int httpStatus;
+        int httpStatusJersey;
 
         int errorcode = DataHandler.deleteSchuh(jerseyUUID);
-        if (errorcode == 0) httpStatus = 200;
-        else if (errorcode == -1) httpStatus = 409;
-        else httpStatus = 404;
+        if (errorcode == 0) httpStatusJersey = 200;
+        else if (errorcode == -1) httpStatusJersey = 409;
+        else httpStatusJersey = 404;
 
 
         Response response = Response
-                .status(httpStatus)
+                .status(httpStatusJersey)
                 .entity("")
                 .build();
         return response;
