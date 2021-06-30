@@ -35,6 +35,7 @@ public class Config extends Application {
         providers.add(SpielerService.class);
         providers.add(SchuhService.class);
         providers.add(JerseyService.class);
+        providers.add(UserService.class);
         return providers;
     }
 

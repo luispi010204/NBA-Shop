@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="author" content="Luigi Spina"/>
+    <meta name="project" content="NBA-Shop"/>
+    <meta name="description" content="Basketball players with their shoes and jerseys"/>
+    <title>NBA-Shop</title>
 </head>
 <body>
+<h3>NBA-Shop</h3>
+<div id="nav">
 
+
+    <button type="button" id="logoff">Abmelden</button>
+    <span id="userRole"></span>
+    <span id="message" style="color: red;"></span>
+</div>
+<form id="spieleranzeige">
+    <table id="nba-shop">
+        <thead>
+        <tr>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>Alter</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <p>
+        <a href="./spieleredit.html">Neuer Spieler</a>
+    </p>
+</form>
+<script src="./js/jquery-3.6.0.min.js"></script>
+<script src="./js/nba-shop.js"></script>
+<script src="./js/js.cookie.js"></script>
+<script src="./js/spieleredit.js"></script>
 </body>
 </html>
