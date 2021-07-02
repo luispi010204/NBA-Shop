@@ -11,9 +11,6 @@ import javax.validation.constraints.Pattern;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.crypto.Data;
-import java.math.BigDecimal;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -36,14 +33,11 @@ public class SpielerService {
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listPlayers(
+            @CookieParam("userRole") String userRole
     ) {
-        Map<String, Spieler> spielerMap = DataHandler.getSpielerMap();
-        Response response = Response
-                .status(200)
-                .entity(spielerMap)
-                .build();
-        return response;
+        if (UserRole.isInvalid(userRole)) return UserRole.createInvalidUserResponse(userRole);
 
+        return UserRole.createResponse(200, DataHandler.getSpielerMap(), userRole);
     }
 
     /**
@@ -58,28 +52,19 @@ public class SpielerService {
     public Response readPlayer(
             @NotEmpty
             @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
-            @QueryParam("uuid") String spielerUUID
+            @QueryParam("uuid") String spielerUUID,
+            @CookieParam("userRole") String userRole
     ) {
-        Spieler spieler = null;
-        int httpStatus;
+        if (UserRole.isInvalid(userRole)) return UserRole.createInvalidUserResponse(userRole);
 
-        try {
-            UUID spielerKey = UUID.fromString(spielerUUID);
-            spieler = DataHandler.readSpieler(spielerUUID);
-            if (spieler.getNachname() != null) {
-                httpStatus = 200;
-            } else {
-                httpStatus = 404;
-            }
-        } catch (IllegalArgumentException argEx) {
-            httpStatus = 400;
+        Spieler spieler = DataHandler.readSpieler(spielerUUID);;
+
+        int httpStatus = 404;
+        if (spieler.getVorname() != null) {
+            httpStatus = 200;
         }
 
-        Response response = Response
-                .status(httpStatus)
-                .entity(spieler)
-                .build();
-        return response;
+        return UserRole.createResponse(httpStatus, spieler);
     }
 
 
@@ -97,29 +82,25 @@ public class SpielerService {
             @NotEmpty
             @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
             @FormParam("schuhUUID") String schuhUUID,
-            @FormParam("jerseyUUID") String jerseyUUID
+            @FormParam("jerseyUUID") String jerseyUUID,
+            @CookieParam("userRole") String userRole
     ) {
-        int httpStatus = 200;
+        if (UserRole.isInvalid(userRole)) return UserRole.createInvalidUserResponse(userRole);
+
+        int httpStatus = 404;
+
         spieler.setSpielerUUID(UUID.randomUUID().toString());
         Schuh schuh = DataHandler.readSchuh(schuhUUID);
         Jersey jersey = DataHandler.readJersey(jerseyUUID);
-
-        if (schuh != null){
+        if (schuh != null || jersey != null) {
             spieler.setSchuh(schuh);
-            DataHandler.saveSpieler(spieler);
-            httpStatus = 200;
-        } else {
-            httpStatus = 404;
-        }
-
-        if (jersey != null){
             spieler.setJersey(jersey);
             DataHandler.saveSpieler(spieler);
             httpStatus = 200;
-        } else {
-            httpStatus = 404;
         }
 
+        return UserRole.createResponse(httpStatus, "");
+    }
 
         /*setValues(
                 spieler,
@@ -131,13 +112,6 @@ public class SpielerService {
                 jerseyUUID
 
         );*/
-
-        Response response = Response
-                .status(httpStatus)
-                .entity("")
-                .build();
-        return response;
-    }
 
     /**
      * updates an existing player
@@ -154,8 +128,11 @@ public class SpielerService {
             @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
 
             @FormParam("schuhUUID")String schuhUUID,
-            @FormParam("jerseyUUID") String jerseyUUID
+            @FormParam("jerseyUUID") String jerseyUUID,
+            @CookieParam("userRole") String userRole
     ) {
+        if (UserRole.isInvalid(userRole)) return UserRole.createInvalidUserResponse(userRole);
+
         int httpStatus = 200;
         Spieler alterSpieler = DataHandler.readSpieler(spieler.getSpielerUUID());
 
@@ -181,7 +158,7 @@ public class SpielerService {
                 .status(httpStatus)
                 .entity("")
                 .build();
-        return response;
+        return UserRole.createResponse(httpStatus, "");
     }
 
     /**
@@ -195,8 +172,12 @@ public class SpielerService {
     public Response deleteSpieler(
             @NotEmpty
             @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
-            @QueryParam("uuid") String spielerUUID
+            @QueryParam("uuid") String spielerUUID,
+            @CookieParam("userRole") String userRole
     ) {
+
+        if (UserRole.isInvalid(userRole)) return UserRole.createInvalidUserResponse(userRole);
+
         int httpStatus;
 
         try {
@@ -215,7 +196,7 @@ public class SpielerService {
                 .status(httpStatus)
                 .entity("")
                 .build();
-        return response;
+        return UserRole.createResponse(httpStatus, "");
     }
     /**
      * sets the attribute values of the book object

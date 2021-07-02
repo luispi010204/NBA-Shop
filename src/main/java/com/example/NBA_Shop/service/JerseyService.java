@@ -2,6 +2,7 @@ package com.example.NBA_Shop.service;
 
 import com.example.NBA_Shop.data.DataHandler;
 import com.example.NBA_Shop.model.Jersey;
+import com.example.NBA_Shop.model.Schuh;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -34,11 +35,8 @@ public class JerseyService {
     public Response listJerseys(
     ) {
         Map<String, Jersey> jerseyMap = DataHandler.getJerseyMap();
-        Response response = Response
-                .status(200)
-                .entity(jerseyMap)
-                .build();
-        return response;
+
+        return UserRole.createResponse(200, jerseyMap);
     }
 
     /**
@@ -55,22 +53,14 @@ public class JerseyService {
             @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
             @QueryParam("uuid") String jerseyUUID
     ) {
-        Jersey jersey = null;
-        int httpStatus;
+        int httpStatus = 404;
 
-        jersey = DataHandler.readJersey(jerseyUUID);
+        Jersey jersey = DataHandler.readJersey(jerseyUUID);
         if (jersey.getSpielerName() != null) {
             httpStatus = 200;
-        } else {
-            httpStatus = 404;
         }
 
-
-        Response response = Response
-                .status(httpStatus)
-                .entity(jersey)
-                .build();
-        return response;
+        return UserRole.createResponse(httpStatus, jersey);
     }
 
     /**
@@ -86,15 +76,10 @@ public class JerseyService {
             @Valid @BeanParam Jersey jersey
 
     ) {
-        int httpStatus = 200;
         jersey.setJerseyUUID(UUID.randomUUID().toString());
         DataHandler.saveJersey(jersey);
 
-        Response response = Response
-                .status(httpStatus)
-                .entity("")
-                .build();
-        return response;
+        return UserRole.createResponse(200, "");
     }
 
     /**
@@ -109,19 +94,9 @@ public class JerseyService {
     public Response updateJersey(
             @Valid @BeanParam Jersey jersey
     ) {
-        int httpStatus = 200;
+        int httpStatus = DataHandler.updateJersey(jersey) ? 200 : 404;
 
-        if (DataHandler.updateJersey(jersey)) {
-            httpStatus = 200;
-        } else {
-            httpStatus = 404;
-        }
-
-        Response response = Response
-                .status(httpStatus)
-                .entity("")
-                .build();
-        return response;
+        return UserRole.createResponse(httpStatus, "");
     }
 
     @DELETE
@@ -132,19 +107,13 @@ public class JerseyService {
             @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
             @QueryParam("uuid") String jerseyUUID
     ) {
-        int httpStatusJersey;
+        int httpStatus = 404;
 
-        int errorcode = DataHandler.deleteSchuh(jerseyUUID);
-        if (errorcode == 0) httpStatusJersey = 200;
-        else if (errorcode == -1) httpStatusJersey = 409;
-        else httpStatusJersey = 404;
+        int errorcode = DataHandler.deleteJersey(jerseyUUID);
+        if (errorcode == 0) httpStatus = 200;
+        else if (errorcode == -1) httpStatus = 409;
 
-
-        Response response = Response
-                .status(httpStatusJersey)
-                .entity("")
-                .build();
-        return response;
+        return UserRole.createResponse(httpStatus, "");
     }
 
 }

@@ -3,7 +3,6 @@ package com.example.NBA_Shop.service;
 import com.example.NBA_Shop.data.DataHandler;
 import com.example.NBA_Shop.model.Schuh;
 
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -35,11 +34,8 @@ public class SchuhService {
     public Response listShoes(
     ) {
         Map<String, Schuh> schuhMap = DataHandler.getSchuhMap();
-        Response response = Response
-                .status(200)
-                .entity(schuhMap)
-                .build();
-        return response;
+
+        return UserRole.createResponse(200, schuhMap);
     }
 
     /**
@@ -56,26 +52,13 @@ public class SchuhService {
             @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
             @QueryParam("uuid") String schuhUUID
     ) {
-        Schuh schuh = null;
-        int httpStatus;
+        int httpStatus = 404;
 
-        try {
-            UUID.fromString(schuhUUID);
-            schuh = DataHandler.readSchuh(schuhUUID);
-            if (schuh.getSchuhName() != null) {
-                httpStatus = 200;
-            } else {
-                httpStatus = 404;
-            }
-        } catch (IllegalArgumentException argEx) {
-            httpStatus = 400;
+        Schuh schuh = DataHandler.readSchuh(schuhUUID);
+        if (schuh.getSchuhName() != null) {
+            httpStatus = 200;
         }
-
-        Response response = Response
-                .status(httpStatus)
-                .entity(schuh)
-                .build();
-        return response;
+        return UserRole.createResponse(httpStatus, schuh);
     }
 
     /**
@@ -89,15 +72,10 @@ public class SchuhService {
     public Response createSchuh(
             @Valid @BeanParam Schuh schuh
     ) {
-        int httpStatus = 200;
         schuh.setSchuhUUID(UUID.randomUUID().toString());
         DataHandler.saveSchuh(schuh);
 
-        Response response = Response
-                .status(httpStatus)
-                .entity("")
-                .build();
-        return response;
+        return UserRole.createResponse(200, "");
     }
 
     /**
@@ -111,23 +89,10 @@ public class SchuhService {
     public Response updateSchuh(
             @Valid @BeanParam Schuh schuh
     ) {
-        int httpStatus = 200;
+        int httpStatus = DataHandler.updateSchuh(schuh) ? 200 : 404;
 
-        ;
-            if (DataHandler.updateSchuh(schuh)) {
-                httpStatus = 200;
-            } else {
-                httpStatus = 404;
-            }
-
-
-        Response response = Response
-                .status(httpStatus)
-                .entity("")
-                .build();
-        return response;
+        return UserRole.createResponse(httpStatus, "");
     }
-
     /**
      * deletes schoes
      *
@@ -142,19 +107,13 @@ public class SchuhService {
             @Pattern(regexp = "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}")
             @QueryParam("uuid") String schuhUUID
     ) {
-        int httpStatusSchuh;
+        int httpStatus = 404;
 
-            int errorcode = DataHandler.deleteSchuh(schuhUUID);
-            if (errorcode == 0) httpStatusSchuh = 200;
-            else if (errorcode == -1) httpStatusSchuh = 409;
-            else httpStatusSchuh = 404;
+        int errorcode = DataHandler.deleteSchuh(schuhUUID);
+        if (errorcode == 0) httpStatus = 200;
+        else if (errorcode == -1) httpStatus = 409;
 
-
-        Response response = Response
-                .status(httpStatusSchuh)
-                .entity("")
-                .build();
-        return response;
+        return UserRole.createResponse(httpStatus, "");
     }
 
 
