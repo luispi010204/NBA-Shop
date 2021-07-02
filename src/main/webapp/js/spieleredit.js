@@ -38,7 +38,7 @@ function loadSpieler() {
                 dataType: "json",
                 type: "GET"
             })
-            .done(showBook)
+            .done(showSpieler)
             .fail(function (xhr, status, errorThrown) {
                 if (xhr.status == 403) {
                     window.location.href = "./login.html";

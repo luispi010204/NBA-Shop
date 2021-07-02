@@ -9,13 +9,12 @@
  * register listeners and load all spieler
  */
 $(document).ready(function () {
-
     loadSpieler();
 
     /**
      * listener for buttons within spielerliste
      */
-    $("#shelfForm").on("click", "button", function () {
+    $("#spieleranzeige").on("click", "button", function () {
         if (confirm("Wollen Sie diesen Spieler wirklich löschen?")) {
             deleteSpieler(this.value);
         }
@@ -51,7 +50,7 @@ function showSpieler(spielerData) {
 
     let table = document.getElementById("nba-shop");
 
-    //clearTable(table);
+    clearTable(table);
 
     $.each(spielerData, function (uuid, spieler) {
         if (spieler.vorname) {
@@ -88,7 +87,7 @@ function clearTable(table) {
 }
 
 /**
- * send delete request for a book
+ * send delete request for a player
  * @param spielerUUID
  */
 function deleteSpieler(spielerUUID) {
@@ -99,7 +98,7 @@ function deleteSpieler(spielerUUID) {
             type: "DELETE",
         })
         .done(function (data) {
-            loadspieler();
+            loadSpieler();
             $("#message").text("Spieler gelöscht");
 
         })
