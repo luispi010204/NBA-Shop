@@ -36,15 +36,15 @@ function loadSpieler() {
             } else if (xhr.status == 404) {
                 $("#message").text("keine Spieler vorhanden");
             }else {
-                $("#message").text("Fehler beim Lesen der Spieler");
+                $("#message").text("Fehler beim Lesen der Spieler, Melden sie sich zuerst an.");
             }
         })
 }
 
 /**
- * shows all books as a table
+ * shows all players as a table
  *
- * @param spielerData all books as an array
+ * @param spielerData all players as an array
  */
 function showSpieler(spielerData) {
 
@@ -70,6 +70,12 @@ function showSpieler(spielerData) {
             cell = row.insertCell(-1);
             cell.innerHTML = spieler.jersey.spielerName;
 
+            cell = row.insertCell(-1);
+            cell.innerHTML = spieler.schuh.preis;
+
+            cell = row.insertCell(-1);
+            cell.innerHTML = spieler.jersey.preis;
+
 
             cell = row.insertCell(-1);
             cell.innerHTML = "<a href='./spieleredit.html?uuid=" + uuid + "'>Bearbeiten</a>";
@@ -79,6 +85,7 @@ function showSpieler(spielerData) {
         }
     });
 }
+
 
 function clearTable(table) {
     while (table.hasChildNodes()) {

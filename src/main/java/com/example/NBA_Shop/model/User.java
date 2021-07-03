@@ -2,7 +2,7 @@ package com.example.NBA_Shop.model;
 
 /**
  * an application user
- * <p>
+ *
  * NBA-Shop
  *
  * @author Luigi Spina

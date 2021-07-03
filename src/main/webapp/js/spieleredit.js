@@ -5,7 +5,7 @@
  */
 
 /**
- * register listeners and load the book data
+ * register listeners and load the players data
  */
 $(document).ready(function () {
     loadSchuhe();
@@ -18,7 +18,7 @@ $(document).ready(function () {
     $("#spielereditForm").submit(saveSpieler);
 
     /**
-     * listener for button [abbrechen], redirects to bookshelf
+     * listener for button [abbrechen], redirects to the homepage
      */
     $("#cancel").click(function () {
         window.location.href = "./nba-shop.html";
@@ -52,8 +52,8 @@ function loadSpieler() {
 }
 
 /**
- * shows the data of this book
- * @param  spieler  the book data to be shown
+ * shows the data of this player
+ * @param  spieler  the player data to be shown
  */
 function showSpieler(spieler) {
     $("#spielerUUID").val(spieler.spielerUUID);
@@ -62,6 +62,8 @@ function showSpieler(spieler) {
     $("#alter").val(spieler.alter);
     $("#schuh").val(spieler.schuh.schuhUUID);
     $("#jersey").val(spieler.jersey.jerseyUUID);
+    $("#preisSchuh").val(spieler.schuh.preis);
+    $("#preisJersey").val(spieler.jersey.preis);
 }
 
 /**
@@ -102,6 +104,9 @@ function saveSpieler(form) {
         })
 }
 
+/**
+ * laods the data of the shoes
+ */
 function loadSchuhe() {
     $
         .ajax({
@@ -119,6 +124,11 @@ function loadSchuhe() {
         })
 }
 
+/**
+ * schows all the shoes
+ *
+ * @param schuhe
+ */
 function showSchuh(schuhe) {
 
     $.each(schuhe, function (uuid, schuh) {
@@ -129,6 +139,11 @@ function showSchuh(schuhe) {
     });
 }
 
+/**
+ * it loads all the data of the jerseys
+ *
+ *
+ */
 function loadJerseys() {
     $
         .ajax({
@@ -145,6 +160,12 @@ function loadJerseys() {
             }
         })
 }
+
+/**
+ * it shows all the jerseys
+ *
+ * @param jersey
+ */
 
 function showJersey(jersey) {
 

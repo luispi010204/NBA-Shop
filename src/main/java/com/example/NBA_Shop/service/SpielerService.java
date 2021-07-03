@@ -95,6 +95,10 @@ public class SpielerService {
         if (schuh != null || jersey != null) {
             spieler.setSchuh(schuh);
             spieler.setJersey(jersey);
+            schuh.setSchuhName(schuhUUID);
+            schuh.setPreis(schuh.getPreis());
+            jersey.setSpielerName(jerseyUUID);
+            jersey.setPreis(jersey.getPreis());
             DataHandler.saveSpieler(spieler);
             httpStatus = 200;
         }
@@ -102,16 +106,7 @@ public class SpielerService {
         return UserRole.createResponse(httpStatus, "");
     }
 
-        /*setValues(
-                spieler,
-                vorname,
-                nachname,
-                spielerUUID,
-                alter,
-                schuhUUID,
-                jerseyUUID
 
-        );*/
 
     /**
      * updates an existing player
@@ -135,6 +130,8 @@ public class SpielerService {
 
         int httpStatus = 200;
         Spieler alterSpieler = DataHandler.readSpieler(spieler.getSpielerUUID());
+        Schuh alterSchuh = DataHandler.readSchuh(spieler.getSpielerUUID());
+        Jersey altesJersey = DataHandler.readJersey(spieler.getSpielerUUID());
 
         if (alterSpieler.getVorname() != null){
             httpStatus = 200;
@@ -145,11 +142,18 @@ public class SpielerService {
 
             Schuh schuh = DataHandler.readSchuh(schuhUUID);
             alterSpieler.setSchuh(schuh);
+            alterSchuh.setSchuhName(schuh.getSchuhName());
+            alterSchuh.setPreis(schuh.getPreis());
+
 
             Jersey jersey = DataHandler.readJersey(jerseyUUID);
             alterSpieler.setJersey(jersey);
+            altesJersey.setSpielerName(jersey.getSpielerName());
+            altesJersey.setPreis(jersey.getPreis());
 
             DataHandler.updateSpieler();
+            DataHandler.updateJersey(jersey);
+            DataHandler.updateSchuh(schuh);
         } else {
             httpStatus = 404;
         }
@@ -199,7 +203,7 @@ public class SpielerService {
         return UserRole.createResponse(httpStatus, "");
     }
     /**
-     * sets the attribute values of the book object
+     * sets the attribute values of the player object
      * @param vorname firstname of player
      * @param nachname lastname of player
      * @param spielerUUID a unique id of player

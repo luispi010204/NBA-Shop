@@ -8,7 +8,7 @@ import javax.ws.rs.FormParam;
  *
  * @author Luigi Spina
  * @version 1.0
- * @since 2021-06-16
+ * @since 2021-07-03
  */
 
 public class Jersey {

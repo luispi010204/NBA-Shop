@@ -37,6 +37,12 @@ public class UserService {
 
         int httpStatus = userRole.equals("guest") ? 401 : 200;
 
+        if (userRole.equals("guest")){
+            httpStatus = 401;
+        }else if(userRole.equals("user")|| userRole.equals("admin")){
+            httpStatus = 200;
+        }
+
         return UserRole.createResponse(httpStatus, "", userRole);
     }
 

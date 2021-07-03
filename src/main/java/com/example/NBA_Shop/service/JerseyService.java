@@ -99,6 +99,15 @@ public class JerseyService {
         return UserRole.createResponse(httpStatus, "");
     }
 
+
+
+    /**
+     * deletes a jersey
+     *
+     * @param jerseyUUID the uuid of the jersey to be deleted
+     * @return Response
+     */
+
     @DELETE
     @Path("delete")
     @Produces(MediaType.TEXT_PLAIN)

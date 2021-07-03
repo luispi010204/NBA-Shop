@@ -8,4 +8,11 @@
   "username" : "guest",
   "password" : "12345",
   "role" : "guest"
-} ]
+} ,
+  {
+    "userUUID": "7c483188-91f7-15eb-a8b3-0241ac130003",
+    "username": "user",
+    "password": "12345",
+    "role": "user"
+  }
+]

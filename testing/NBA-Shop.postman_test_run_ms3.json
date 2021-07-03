@@ -1,0 +1,179 @@
+{
+	"id": "4d382c2f-d0f0-467d-b5e5-aa9ed71b3786",
+	"name": "NBA-Shop",
+	"timestamp": "2021-07-03T16:30:43.132Z",
+	"collection_id": "964e095f-c87f-4957-83f8-ee65fc6c5c21",
+	"folder_id": "9c5f6b78-2fce-4b8f-a2a4-c8e08c01f701",
+	"environment_id": "0",
+	"totalPass": 6,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "e2a07608-a7ed-4f2b-9d53-499d51d36260",
+			"name": "LU07.01 User Logout",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/user/logout",
+			"time": 77,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				77
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "d6b73275-f165-4da0-9a3a-f8d96ea20221",
+			"name": "LU07.01 Guest Login",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/user/login",
+			"time": 26,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				26
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "ea18bc42-74f0-4e76-b19e-a40cd430af62",
+			"name": "LU07.01 All Books",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/spieler/list?role=admin",
+			"time": 8,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "74f2513b-e697-4d9d-b110-270039d2ec90",
+			"name": "LU07.01 User Login",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/user/login",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "18261597-48d6-4aa8-a95d-4f28e94296cd",
+			"name": "LU07.01 All Books",
+			"url": "http://localhost:8080/NBA-Shop-1.0-SNAPSHOT/resource/spieler/list?role=admin",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"validate response": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 131,
+	"collection": {
+		"requests": [
+			{
+				"id": "e2a07608-a7ed-4f2b-9d53-499d51d36260",
+				"method": "DELETE"
+			},
+			{
+				"id": "d6b73275-f165-4da0-9a3a-f8d96ea20221",
+				"method": "POST"
+			},
+			{
+				"id": "ea18bc42-74f0-4e76-b19e-a40cd430af62",
+				"method": "GET"
+			},
+			{
+				"id": "74f2513b-e697-4d9d-b110-270039d2ec90",
+				"method": "POST"
+			},
+			{
+				"id": "18261597-48d6-4aa8-a95d-4f28e94296cd",
+				"method": "GET"
+			}
+		]
+	}
+}
